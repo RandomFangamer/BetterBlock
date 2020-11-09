@@ -64,7 +64,7 @@ if (player == noone &amp;&amp; global.grav == -1 &amp;&amp; wasCarrying){
 }
 
 //Not on top of platform
-if (player != noone &amp;&amp; !((global.grav == 1 &amp;&amp; player.yprevious + player.bottomToOrigin - player.gravity &lt;= bbox_tPrevious) || (global.grav == -1 &amp;&amp; player.yprevious - player.bottomToOrigin + other.gravity &gt;= bbox_bPrevious)))
+if (player != noone &amp;&amp; !((global.grav == 1 &amp;&amp; player.yprevious + player.bottomToOrigin - player.gravity &lt;= bbox_tPrevious) || (global.grav == -1 &amp;&amp; player.yprevious - player.topToOrigin + other.gravity &gt;= bbox_bPrevious)))
     player = noone;
 
 //Move Player
@@ -101,20 +101,20 @@ if (player != noone &amp;&amp; (!instance_exists(player.riding) || player.riding
             y += platCheck;
         }else if (global.grav == -1){
             if (vspeed &lt; 0) vspeed = 0;
-            platCheck = other.bbox_bottom - (y-bottomToOrigin);
+            platCheck = other.bbox_bottom - (y-topToOrigin);
             for(platCounter=1; platCounter&lt;=ceil(abs(platCheck)); platCounter++){
                 if (place_meeting(x, y+platCounter*sign(platCheck), objBlock)){ //touching objBlock or a child of objBlock
                     with (objBlock){
                         if (place_meeting(x, y-other.platCounter*sign(other.platCheck), other) &amp;&amp; id != other.riding){ //avoid being pulled into a block or through a platform
-                            if (other.platCheck &lt; 0 &amp;&amp; bbox_bottom &lt;= other.y - other.bottomToOrigin - other.gravity){
-                                other.y = bbox_bottom + other.bottomToOrigin; //stand on the block
+                            if (other.platCheck &lt; 0 &amp;&amp; (bbox_bottom + 1) &lt;= other.y + other.topToOrigin - other.gravity){
+                                other.y = (bbox_bottom + 1) + other.topToOrigin; //stand on the block
                                 other.platCheck = 0 //end the for loop
                                 other.onPlatform = (object_is_ancestor(object_index, objPlatform) || object_index == objPlatform);
                                 other.riding = id;
                                 break;
-                            }else if (scrIsBlock() &amp;&amp; other.platCheck &gt; 0 &amp;&amp; bbox_top &gt;= other.y + other.topToOrigin - other.gravity){ //get pushed through platform
+                            }else if (scrIsBlock() &amp;&amp; other.platCheck &gt; 0 &amp;&amp; bbox_top &gt;= other.y - other.bottomToOrigin - other.gravity){ //get pushed through platform
                                 other.vspeed = 0;
-                                other.y = bbox_top - other.topToOrigin; //snap to the top of block
+                                other.y = bbox_top - other.bottomToOrigin; //snap to the top of block
                                 other.platCheck = 0; //end the for loop
                                 break;
                             }

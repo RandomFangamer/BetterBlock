@@ -215,7 +215,7 @@ with (player){ //Move with the block
                 vspeed = 0; //stand
                 other.wasCarrying = true;
             }else{
-                y = other.bbox_top - topToOrigin;
+                y = other.bbox_top - bottomToOrigin;
                 vspeed = min(0, t_BvSpd, vspeed); //bonk
             }
         }else{
@@ -223,7 +223,7 @@ with (player){ //Move with the block
                 y = other.bbox_bottom + topToOrigin;
                 vspeed = max(0, t_BvSpd, vspeed); //bonk
             }else{
-                y = other.bbox_bottom + bottomToOrigin; 
+                y = other.bbox_bottom + topToOrigin; 
                 vspeed = 0; //stand
                 other.wasCarrying = true;
             }
