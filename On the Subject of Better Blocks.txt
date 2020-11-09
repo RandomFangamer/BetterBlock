@@ -1,0 +1,90 @@
+The BetterBlock Engine
+https://github.com/RandomFangamer/BetterBlock
+
+Based off of I Wanna Be The Studio Engine YoYoYo Edition version 1.51
+https://github.com/YoYoYoDude/YoYoYo_Engine
+
+On the Subject of Better Blocks (and Platforms):
+
+To help you understand how to use these resources, I have compiled a list of tips and information below:
+You do not need to read the entire document at once, but if you are coming against issues I recommend reading this while trying to fix your problem. If the issue persists, or you found a bug in the engine, you can always contact me on Discord (RandomFangamer#2615).
+
+What is included with this engine?
+
+>A more flexible version of objMovingPlatform and objBlock, aptly named objBetterMovingPlatform and objBetterBlock.
+>scrMoveContactObject, A script similar to move_contact_solid for objBetterBlock or any other non-solid object.
+>sndBreak, the typical breaking sound effect heard in most trap fangames that wasn't in the YoYoYo engine before for whatever reason.
+>Several example objects, including a SMW Donut Block and Yoshi's Island rotating platform wheel.
+>A room filled with these assets to demonstrate their use.
+>A new miku avoidance, based on the game IWBT Player Killer, which uses a switch statement, inequalities and a "track jumping" system for testing.
+
+------------------------------------------------------------------------
+To import these assets into an existing game, please see this section:
+
+What assets must be imported to get the Better Blocks and Platforms to work?
+	objBetterBlock and objBetterMovingPlatform (obviously)
+	objBetterBlockCtrl
+	scrIsBlock, scrIsBetterBlock, and scrIsBetterPlatform
+
+To update the engine from Version 1 to Version 1.1:
+	- Replace User Event 0, 1 and 2 in objBetterBlock
+	- Replace User Event 0 in objBetterMovingPlatform
+	- Make the changes listed below that are prefixed with "Version 1.1"
+
+What existing code does this engine change? (Required to import Better Blocks and Platforms into your game)
+	objPlayer:
+		Create Event:
+			The variables platCheck, platCounter, riding, PhSpd, PvSpd and hPush are initialized under the comment "Better Block".
+			Version 1.1: the top/left/bottom/rightToOrigin variables are initialized as well.
+		Step Event:
+			Line 18 (setting notOnBlock) is amended to check the variable riding
+		End Step Event:
+			Line 8 is amended to check riding, like Step Event Line 18
+			The second Execute Code block...
+				Sets up values to record the Player's movement for objBetterBlock.
+				Version 1.1: Defines the distance between the player's origin and bounding box values
+		Collision w/ objPlatform
+			Checks if the colliding instance is a Better Block or Better Platform, and skips over the code if this is true.
+		Collision w/ objBlock
+			Checks if the colliding instance is a Better Block or Better Platform, and skips over the code if this is true.
+		New Event: Collision w/ objBetterBlock
+			Pushes the player out of the instance (if possible) to avoid collision order issues.
+	objWorld Game Start:
+		Creates an instance of objBetterBlockCtrl to handle Better Block collisions
+	
+	(Optional) objBlood:
+			Collision w/ objBlock
+				Modifies the existing code to make it work for non-solid objects, such as objBetterBlock.
+			Remove collision w/ objPlatform
+				Allows objPlatform and it's children to be included in the objBlock collision check.
+	
+	***Additionally, please note that objBetterMovingPlatform and objBetterBlock are children of objPlatform. If these objects are not present in the file you are importing the Better Blocks/Platforms to, it will cause multiple errors.***
+	***If you turn off short-circuit evaluations, these assets will cause your game to crash. The setting for short-circuit evaluations is located in the General tab of the Resources -> Global Game Settings window.
+------------------------------------------------------------------------
+
+Here are a few guidelines to help you use these assets:
+1) If you want an object to have the same properties as a Better Block or Platform, there are two ways to do so:
+	1: Set the object to be a child of objBetterBlock or objBetterMovingPlatform. (See example stage objects)
+		- The object must have a rectangular hitbox (See Point #2) and should be located in the Resource Tree in the blocks/platforms folder.
+		- The object must either have no Create Event or use event_inherited() in its Create Event.
+		- The object should not have User Events 0-3 if it is a child of objBetterBlock or User Event 0 if it is a child of objBetterMovingPlatform. These will be called by objBetterBlockCtrl, and adding code there will probably mess up your object and will definitely mess up the Better Block/Platform interactions with objPlayer. If you want to execute code during the Better Block collisions, you could do that and add event_inherited() in the code, but I don't recommend it. Any other User Events are fine.
+	2: Create an instance of the Block or Platform in the carrying object's create event, and move it every step. (See avoidance objects)
+		- If an object moves the Block/Platform in the "step" or "begin step" events, it can be placed anywhere in the object tree, but if it moves them in the "end step" event it should be placed above objBetterBlockPlatformCtrl so it will move before the collisions code is run.
+        - Additionally, you should destroy the block or platform when the object is destroyed. Otherwise, the block or platform will remain in the room and can still be interacted with. I recommend using the Destroy Event to ensure the object is destroyed.
+
+2) The Better Blocks and Platforms should work with all rectangular hitboxes regardless of their origin and size. Even changing the x/yscale of an instance between collisions will not break their behavior. This is possible through the use of bounding box positions instead of x/y positions. Default engine platforms do not have this same flexibility, as they use the latter method.
+However, more complicated hitboxes with cause weird behavior. If you want to use something that isn't a rectangle, you will have to code that yourself or form the shape out of multiple better blocks. For example, if you wanted to make a "T", you could use one block for the part that is longest vertically, and another for the part that is longest horizontally. Whether the blocks overlap at the intersection is negligible.
+Rotating blocks/platforms will also not function properly.
+
+3) There are 3 scripts in the engine which are used to group objects based on their object index. 
+   These scripts were designed to use an instance id, but will also work with object indexes if there is at least one instance of that object in the room. If the instance id or object index is not present in the room, the scripts will return false. Otherwise, they will check the instance or object as follows:
+	- scrIsBlock() || Returns "true" if the instance/object is solid or a "Better Block".
+	- scrIsBetterBlock() || Returns "true" if the instance/object is objBetterBlock or a child of objBetterBlock.
+	- scrIsBetterPlatform() || Returns "true" if the instance/object is objBetterMovingPlatform or a child of objBetterMovingPlatform.
+
+4) If you want to move a Better Block to a new position without it recording that movement, you should run make the Better Block run event_user(3) after moving it. This will make the Better Block act as if it was in this new position the previous frame. After running that event, any new movement will be used to determine how to push the player.
+One possible use of this is to deliberately "crush" the player by moving a Better Block to their position, as normally the Better Block would push the player in the direction it "moved".
+
+Additionally, if you want to add to this engine, you can send the new assets/code to me through Discord and I will implement them and give you credit if desired. These contributions can be improvements to the existing objects, new objects, new scripts, etc. I would love for people to contribute to this engine, since my primary focus will be on my own games. I may update the engine myself from time to time if I end up needing additional features or think of something useful.
+
+Thank you for taking the time to read this, and I hope you find this engine helpful. As I said at the top of the document, if you found any bugs in the engine or just have a question, you can message me on Discord (RandomFangamer#2615).
