@@ -90,7 +90,7 @@ alarm[0] = 30;
         x = stand.x + 32;
         y = stand.y;
     }
-}else if (y &gt; 608) instance_destroy();
+}else if (bbox_top &gt; room_height) instance_destroy();
 </string>
           </argument>
         </arguments>

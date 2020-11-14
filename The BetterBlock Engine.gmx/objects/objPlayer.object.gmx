@@ -191,9 +191,9 @@ PhSpd = (x - xprevious);
 PvSpd = (y - yprevious);
 
 //Version 1.1: used to store the relationship between the player's origin and their bbox
-leftToOrigin = (sprite_get_xoffset(mask_index) - sprite_get_bbox_left(mask_index) + 1)*image_xscale;
+leftToOrigin = (sprite_get_xoffset(mask_index) - sprite_get_bbox_left(mask_index))*image_xscale;
 rightToOrigin = (sprite_get_bbox_right(mask_index) - sprite_get_xoffset(mask_index) + 1)*image_xscale;
-topToOrigin = (sprite_get_yoffset(mask_index) - sprite_get_bbox_top(mask_index) + 1)*image_yscale;
+topToOrigin = (sprite_get_yoffset(mask_index) - sprite_get_bbox_top(mask_index))*image_yscale;
 bottomToOrigin = (sprite_get_bbox_bottom(mask_index) - sprite_get_yoffset(mask_index) + 1)*image_yscale;
 </string>
           </argument>

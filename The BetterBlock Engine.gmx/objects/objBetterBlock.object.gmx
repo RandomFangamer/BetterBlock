@@ -220,10 +220,10 @@ with (player){ //Move with the block
             }
         }else{
             if (global.grav == 1){
-                y = other.bbox_bottom + topToOrigin;
+                y = other.bbox_bottom + 1 + topToOrigin;
                 vspeed = max(0, t_BvSpd, vspeed); //bonk
             }else{
-                y = other.bbox_bottom + topToOrigin; 
+                y = other.bbox_bottom + 1 + topToOrigin; 
                 vspeed = 0; //stand
                 other.wasCarrying = true;
             }

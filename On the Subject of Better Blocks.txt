@@ -25,16 +25,22 @@ What assets must be imported to get the Better Blocks and Platforms to work?
 	objBetterBlock and objBetterMovingPlatform (obviously)
 	objBetterBlockCtrl
 	scrIsBlock, scrIsBetterBlock, and scrIsBetterPlatform
+	scrMoveContactObject, to replace move_contact_solid for the BetterBlocks.
 
 To update the engine from Version 1 to Version 1.1:
 	- Replace User Event 0, 1 and 2 in objBetterBlock
 	- Replace User Event 0 in objBetterMovingPlatform
 	- Make the changes listed below that are prefixed with "Version 1.1"
 
+To update the engine from Version 1.1 to Version 1.11
+	- Replace User Event 0 and 1 in objBetterBlock
+	- Replace User Event 0 in objBetterMovingPlatform
+	- Replace the second Execute Code block in the End Step of objPlayer
+
 What existing code does this engine change? (Required to import Better Blocks and Platforms into your game)
 	objPlayer:
 		Create Event:
-			The variables platCheck, platCounter, riding, PhSpd, PvSpd and hPush are initialized under the comment "Better Block".
+			The variables platCheck, platCounter, riding, PhSpd, PvSpd and hPush are initialized under the comment "[Better Block]".
 			Version 1.1: the top/left/bottom/rightToOrigin variables are initialized as well.
 		Step Event:
 			Line 18 (setting notOnBlock) is amended to check the variable riding
@@ -52,7 +58,7 @@ What existing code does this engine change? (Required to import Better Blocks an
 	objWorld Game Start:
 		Creates an instance of objBetterBlockCtrl to handle Better Block collisions
 	
-	(Optional) objBlood:
+	(Optional) objBlood: Requires scrMoveContactObject
 			Collision w/ objBlock
 				Modifies the existing code to make it work for non-solid objects, such as objBetterBlock.
 			Remove collision w/ objPlatform
