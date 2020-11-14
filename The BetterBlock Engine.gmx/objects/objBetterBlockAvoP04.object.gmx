@@ -33,8 +33,8 @@ friction = random_range(0.12, 0.14);
 circle = false;
 acc = false;
 
-platform = instance_create(x, y, objBetterMovingPlatform)
-platform.visible = false
+platform = instance_create(x, y, objBetterMovingPlatform);
+platform.visible = false;
 platform.sprite_index = sprite_index;
 </string>
           </argument>
@@ -58,7 +58,8 @@ platform.sprite_index = sprite_index;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_destroy(platform);
+            <string>with (platform)
+    instance_destroy();
 </string>
           </argument>
         </arguments>
@@ -135,9 +136,9 @@ if (acc) speed += 0.075;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if friction &lt; 0{
-    with platform instance_destroy()
-    instance_destroy()
+            <string>if (friction &lt; 0){
+    with (platform) instance_destroy();
+    instance_destroy();
 }
 </string>
           </argument>

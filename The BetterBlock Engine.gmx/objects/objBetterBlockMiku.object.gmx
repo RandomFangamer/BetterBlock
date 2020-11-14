@@ -54,8 +54,8 @@ blackAlpha = 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.noPause = false
-audio_stop_sound(musBetterBlockMiku)
+            <string>global.noPause = false;
+audio_stop_sound(musBetterBlockMiku);
 </string>
           </argument>
         </arguments>
@@ -111,7 +111,7 @@ with (objBetterBlockDonutBlock){
             <string>///Avoidance Position "Jumping"
 var timerOld = timer; //check if the time has changed to update music
 
-if (scrButtonCheckPressed(global.skipButton) &amp;&amp; (timer &lt; 443 || global.debugMode)) timer = 443 //Skips fade in, even when playing without dev tools IF the avoidance hasn't gotten to the first attack
+if (scrButtonCheckPressed(global.skipButton) &amp;&amp; (timer &lt; 443 || global.debugMode)) timer = 443; //Skips fade in, even when playing without dev tools IF the avoidance hasn't gotten to the first attack
 if (global.debugMode){ //Dev tools
     if (keyboard_check_pressed(ord('1'))) timer = 931;
     if (keyboard_check_pressed(ord('2'))) timer = 1387;
@@ -208,7 +208,7 @@ if (instance_exists(objPlayer) || timer &gt; 4040){ //player is destroyed during
             break;
         case 1037:
         case 1264:
-            with objBetterBlockAvoP02 speed *= -1;
+            with (objBetterBlockAvoP02) speed *= -1;
             angle = 5;
             break;
         case 1387:
@@ -373,14 +373,14 @@ if (instance_exists(objPlayer) || timer &gt; 4040){ //player is destroyed during
     }else if (timer &gt;= 1155 &amp;&amp; timer &lt;= 1243 &amp;&amp; timer mod 8 == 3){
         angle += 10;
         for(i=0;i&lt;3;i++){
-            with instance_create(400,304,objBetterBlockAvoP02){
+            with (instance_create(400,304,objBetterBlockAvoP02)){
                 image_blend = make_color_rgb(255,128,255);
                 direction = other.i*120 + other.angle;
                 speed = 7;
             }
         }
     }else if (timer &gt;= 1387 &amp;&amp; timer &lt;= 1494 &amp;&amp; timer mod 9 == 1){
-        with instance_create(i*64 + 20, 608, objBetterBlockDonutBlock){
+        with (instance_create(i*64 + 20, 608, objBetterBlockDonutBlock)){
             active = false;
             vspeed = -3.5;
             friction = 0.11;
@@ -432,8 +432,8 @@ if (instance_exists(objPlayer) || timer &gt; 4040){ //player is destroyed during
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.noPause = false
-audio_stop_sound(musBetterBlockMiku)
+            <string>global.noPause = false;
+audio_stop_sound(musBetterBlockMiku);
 </string>
           </argument>
         </arguments>

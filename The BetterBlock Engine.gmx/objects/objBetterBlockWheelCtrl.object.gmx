@@ -53,10 +53,9 @@ spdCap = 4.5; //max speed; if negative, its speed will not be capped
 minX = x - 80; //left end of the track
 maxX = x + 80; //right end of the track
 
-//if the wheel only moves vertically, leftY should be where you want the wheel to start, and rightY should be the end.
-//if leftY is less than rightY, rotating the wheel clockwise will move it down. Otherwise, rotating it clockwise will move it up.
-leftY = y - 80; //left end of the track
-rightY = y + 80; //right end of the track
+//min y value must be less than max y value
+minY = y - 80; //left end of the track
+maxY = y + 80; //right end of the track
 
 //positioning
 trackPos = 0; //Percentage representing progress from min to max values on track. 0 = leftmost; 1 = rightmost
@@ -96,18 +95,18 @@ if (horizontal || vertical){ //moving in some way
         }
     }
     if (vertical){
-        y = clamp(y, min(leftY, rightY), max(leftY, rightY));
-        if (!horizontal){ //only vertical
-            if (leftY == rightY) vertical = false; //divide by 0
-            else trackPos = (y - leftY) / (rightY - leftY); //works with the lerp function in the Step Event regardless of which value is larger
+        y = clamp(y, minY, maxY);
+        if (minY == maxY) vertical = false; //divide by 0
+        else{
+            trackPos = (y - minY) / (maxY - minY);
         }
     }
     if (horizontal &amp;&amp; vertical){
-        trackSize = point_distance(minX, leftY, maxX, rightY); //if leftY &gt; rightY, this will still work
+        trackSize = point_distance(minX, minY, maxX, maxY);
     }else if (horizontal){
         trackSize = maxX - minX;
     }else if (vertical){
-        trackSize = abs(rightY - leftY);
+        trackSize = maxY - minY;
     }
 }
 
@@ -181,7 +180,7 @@ if (move &amp;&amp; trackSize != 0){
     trackPos += spd/trackSize;
     trackPos = clamp(trackPos, 0, 1);
     if (horizontal) x = lerp(minX, maxX, trackPos);
-    if (vertical) y = lerp(leftY, rightY, trackPos);
+    if (vertical) y = lerp(minY, maxY, trackPos);
 }
 
 for(i=1;i&lt;=platforms;i++){
@@ -248,14 +247,14 @@ if (move &amp;&amp; (horizontal || vertical)){
         x2 = x;
     }
     if (vertical){
-        y1 = leftY;
-        y2 = rightY;
+        y1 = minY;
+        y2 = maxY;
     }else{
         y1 = y;
         y2 = y;
     }
     //draw the path
-    draw_set_color(c_ltgray);
+    draw_set_color(c_gray);
     draw_line_width(x1, y1, x2, y2, 3);
     draw_set_color(c_white);
 }

@@ -27,13 +27,13 @@
             <kind>1</kind>
             <string>///Intro (Top) Platforms
 
-range = 0
-alarm[0] = 15
-image_alpha = 0.5
-image_speed = 1/15
+range = 0;
+alarm[0] = 15;
+image_alpha = 0.5;
+image_speed = 1/15;
 
-platform = instance_create(x, y, objBetterMovingPlatform)
-platform.visible = false
+platform = instance_create(x, y, objBetterMovingPlatform);
+platform.visible = false;
 platform.sprite_index = sprite_index;
 </string>
           </argument>
@@ -57,7 +57,8 @@ platform.sprite_index = sprite_index;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_destroy(platform);
+            <string>with (platform)
+    instance_destroy();
 </string>
           </argument>
         </arguments>
@@ -80,10 +81,10 @@ platform.sprite_index = sprite_index;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if instance_exists(objPlayer){
-    range *= -1
-    y = ystart + range
-    alarm[1] = 15
+            <string>if (instance_exists(objPlayer)){
+    range *= -1;
+    y = ystart + range;
+    alarm[1] = 15;
 }
 </string>
           </argument>

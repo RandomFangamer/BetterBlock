@@ -51,7 +51,8 @@ yDest = 576; //lowest point
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_destroy(block);
+            <string>with (block)
+    instance_destroy();
 </string>
           </argument>
         </arguments>
