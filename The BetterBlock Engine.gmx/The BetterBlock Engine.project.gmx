@@ -185,6 +185,7 @@
       <script>scripts\scrMakeCircle.gml</script>
     </scripts>
   </scripts>
+  <shaders name="shaders"/>
   <fonts name="fonts">
     <font>fonts\fDefault30</font>
     <font>fonts\fDefault24</font>
@@ -269,6 +270,7 @@
       <object>objects\objBlockRise</object>
       <object>objects\objBlockFall</object>
     </objects>
+    <object>objects\objBetterBlockTest</object>
     <object>objects\objBetterBlockCtrl</object>
     <objects name="killers">
       <object>objects\objPlayerKiller</object>

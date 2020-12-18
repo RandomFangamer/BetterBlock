@@ -37,6 +37,9 @@ To update the engine from Version 1.1 to Version 1.11
 	- Replace User Event 0 in objBetterMovingPlatform
 	- Replace the second Execute Code block in the End Step of objPlayer
 
+To update the engine from Version 1.11 to Version 1.12
+	- Replace User Event 0 in objBetterMovingPlatform
+
 What existing code does this engine change? (Required to import Better Blocks and Platforms into your game)
 	objPlayer:
 		Create Event:
@@ -67,6 +70,17 @@ What existing code does this engine change? (Required to import Better Blocks an
 	***Additionally, please note that objBetterMovingPlatform and objBetterBlock are children of objPlatform. If these objects are not present in the file you are importing the Better Blocks/Platforms to, it will cause multiple errors.***
 	***If you turn off short-circuit evaluations, these assets will cause your game to crash. The setting for short-circuit evaluations is located in the General tab of the Resources -> Global Game Settings window.
 ------------------------------------------------------------------------
+
+**IMPORTANT NOTE**
+Some of the assets will not function properly if they are misplaced in the object resource tree. By default, they are in their correct positions, but for reference here is the order:
+
+objBlock
+objBetterBlock
+objPlatform
+objMovingPlatform
+objBetterMovingPlatform
+objBetterBlockCtrl
+
 
 Here are a few guidelines to help you use these assets:
 1) If you want an object to have the same properties as a Better Block or Platform, there are two ways to do so:

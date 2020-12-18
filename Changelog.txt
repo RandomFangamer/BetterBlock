@@ -1,7 +1,10 @@
+Version 1.12 (12/17/20):
+ - Fixed a glitch in the BetterPlatform object which could rarely pull the player through a block due to GameMaker's method of calculating gravity.
+ - Documentation: Clarified what order in the resource tree these assets need to be in.
+
 Version 1.11 (11/14/20):
- - Improved the platform wheel code to make it more readable
- - Adjusted the way the player's top/bottom/left/rightToOrigin values are calculated to be more logical
-TODO: BetterPlatforms will pull the player through block (not BetterBlock) instances that are outside the room. This still needs to be fixed.
+ - Improved the platform wheel code to make it more readable.
+ - Adjusted the way the player's top/bottom/left/rightToOrigin values are calculated to be more logical.
 
 Version 1.1 (11/9/20):
  - Updated the BetterBlock and BetterPlatform code so they will now work regardless of the Player's mask and origin.
