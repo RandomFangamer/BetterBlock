@@ -93,8 +93,7 @@ if (horizontal || vertical){ //moving in some way
         else{
             trackPos = (x - minX) / (maxX - minX);
         }
-    }
-    if (vertical){
+    }else if (vertical){
         y = clamp(y, minY, maxY);
         if (minY == maxY) vertical = false; //divide by 0
         else{

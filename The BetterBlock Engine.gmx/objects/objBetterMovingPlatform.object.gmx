@@ -82,7 +82,7 @@ if (player != noone &amp;&amp; (!instance_exists(player.riding) || player.riding
                 if (place_meeting(x, y+platCounter*sign(platCheck), objBlock)){ //touching objBlock or a child of objBlock
                     with (objBlock){
                         if (place_meeting(x, y-other.platCounter*sign(other.platCheck), other) &amp;&amp; id != other.riding){ //avoid being pulled into a block or through a platform
-                            if (other.platCheck &gt; 0 &amp;&amp; bbox_top &gt;= other.y + other.bottomToOrigin - ceil(other.gravity)){
+                            if (other.platCheck &gt; 0 &amp;&amp; bbox_top &gt;= other.y + other.bottomToOrigin - 1.1*other.gravity){
                                 other.y = bbox_top - other.bottomToOrigin; //stand on the block
                                 other.platCheck = 0; //end the for loop
                                 other.onPlatform = (object_is_ancestor(object_index, objPlatform) || object_index == objPlatform);
@@ -106,7 +106,7 @@ if (player != noone &amp;&amp; (!instance_exists(player.riding) || player.riding
                 if (place_meeting(x, y+platCounter*sign(platCheck), objBlock)){ //touching objBlock or a child of objBlock
                     with (objBlock){
                         if (place_meeting(x, y-other.platCounter*sign(other.platCheck), other) &amp;&amp; id != other.riding){ //avoid being pulled into a block or through a platform
-                            if (other.platCheck &lt; 0 &amp;&amp; (bbox_bottom + 1) &lt;= other.y + other.topToOrigin - ceil(other.gravity)){
+                            if (other.platCheck &lt; 0 &amp;&amp; (bbox_bottom + 1) &lt;= other.y + other.topToOrigin - 1.1*other.gravity){
                                 other.y = (bbox_bottom + 1) + other.topToOrigin; //stand on the block
                                 other.platCheck = 0 //end the for loop
                                 other.onPlatform = (object_is_ancestor(object_index, objPlatform) || object_index == objPlatform);

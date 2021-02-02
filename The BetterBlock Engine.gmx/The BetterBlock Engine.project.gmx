@@ -270,7 +270,6 @@
       <object>objects\objBlockRise</object>
       <object>objects\objBlockFall</object>
     </objects>
-    <object>objects\objBetterBlockTest</object>
     <object>objects\objBetterBlockCtrl</object>
     <objects name="killers">
       <object>objects\objPlayerKiller</object>

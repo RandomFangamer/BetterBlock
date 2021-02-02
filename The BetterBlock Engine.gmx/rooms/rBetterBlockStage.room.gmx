@@ -61,7 +61,7 @@
     <instance objName="objBlock" x="2400" y="0" name="inst_1C7BD073" locked="0" code="" scaleX="1" scaleY="19" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="1504" y="288" name="inst_32D25D30" locked="0" code="" scaleX="3" scaleY="3" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="640" y="416" name="inst_1C588AF2" locked="0" code="" scaleX="4" scaleY="6" colour="4294967295" rotation="0"/>
-    <instance objName="objBetterBlockWheelCtrl" x="1696" y="336" name="inst_847B27FD" locked="0" code="platforms = 5;&#xA;minX = x;&#xA;maxX = 2320;&#xA;minY = y-80;&#xA;maxY = y+80&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objBetterBlockWheelCtrl" x="1696" y="336" name="inst_847B27FD" locked="0" code="platforms = 5;&#xA;minX = x;&#xA;maxX = 2320;&#xA;minY = y-80;&#xA;maxY = y+80" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objSmoothCamera" x="0" y="32" name="inst_A0F9A62B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objGravityUp" x="2304" y="448" name="inst_381A54EC" locked="0" code="if (!global.bossItem[0]) instance_destroy();&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBetterBlockExpandCtrl" x="2176" y="448" name="inst_A1C1F85D" locked="0" code="horizontal = false;&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
