@@ -99,7 +99,7 @@ audio_pause_sound(global.currentMusic);
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>objWorld</whoName>
+        <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>

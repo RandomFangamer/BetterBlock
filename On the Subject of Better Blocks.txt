@@ -27,18 +27,29 @@ What assets must be imported to get the Better Blocks and Platforms to work?
 	scrIsBlock, scrIsBetterBlock, and scrIsBetterPlatform
 	scrMoveContactObject, to replace move_contact_solid for the BetterBlocks.
 
-To update the engine from Version 1 to Version 1.1:
+To update the engine from Version 1 to Version 1.14:
 	- Replace User Event 0, 1 and 2 in objBetterBlock
 	- Replace User Event 0 in objBetterMovingPlatform
-	- Make the changes listed below that are prefixed with "Version 1.1"
+	- Replace the second Execute Code block in the End Step of objPlayer
+	- Replace Alarm 0 in objBetterBlockWheelCtrl
+	Optional:
+	- Replace sprBetterBlockMiku
+	- Change the line "with (instance_create(x,y,objBetterBlockAvoB01)){" to "with (instance_create(x-16,y-16,objBetterBlockAvoB01)){" in objBetterBlockMiku
 
-To update the engine from Version 1.1 to Version 1.11
+To update the engine from Version 1.1 to Version 1.11:
 	- Replace User Event 0 and 1 in objBetterBlock
 	- Replace User Event 0 in objBetterMovingPlatform
 	- Replace the second Execute Code block in the End Step of objPlayer
 
-To update the engine from Version 1.11 to Version 1.12
+To update the engine from Version 1.11 to Version 1.12:
 	- Replace User Event 0 in objBetterMovingPlatform
+
+To update the engine from Version 1.12 to Version 1.13:
+	- Replace Alarm 0 in objBetterBlockWheelCtrl
+
+To update the engine from Version 1.13 to Version 1.14: (Optional - only affects the avoidance)
+	- Replace sprBetterBlockMiku
+	- Change the line "with (instance_create(x,y,objBetterBlockAvoB01)){" to "with (instance_create(x-16,y-16,objBetterBlockAvoB01)){" in objBetterBlockMiku
 
 What existing code does this engine change? (Required to import Better Blocks and Platforms into your game)
 	objPlayer:

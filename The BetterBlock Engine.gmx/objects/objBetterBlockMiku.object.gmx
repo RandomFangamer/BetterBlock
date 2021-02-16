@@ -358,7 +358,7 @@ if (instance_exists(objPlayer) || timer &gt; 4040){ //player is destroyed during
     if (timer &lt;= 443){
         blackAlpha -= 1/443;
     }else if (timer &gt;= 462 &amp;&amp; timer &lt;= 861 &amp;&amp; timer mod 8 == 6){
-        with (instance_create(x,y,objBetterBlockAvoB01)){
+        with (instance_create(x-16,y-16,objBetterBlockAvoB01)){
             num = 5;
         }
     }else if (timer &gt;= 931 &amp;&amp; timer &lt;= 1032 &amp;&amp; timer mod 10 == 1){
