@@ -111,8 +111,8 @@ instance_destroy();
           <argument>
             <kind>1</kind>
             <string>with (block){
-    x = other.x
-    y = other.y
+    x = other.x;
+    y = other.y;
 }
 </string>
           </argument>

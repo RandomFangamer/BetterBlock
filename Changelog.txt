@@ -1,13 +1,27 @@
-Version 1.12 (12/17/20):
- - Fixed a glitch in the BetterPlatform object which could rarely pull the player through a block due to GameMaker's method of calculating gravity.
+Version 1.1.5 (5/17/21):
+ - Modified objBetterBlock to fix the objPlayer object incorrectly calculating topToOrigin and leftToOrigin in objPlayer's Create Event. These values are calculated correctly in objPlayer's End Step event, so this miscalculation did not create any glitches.
+ - Modified objBetterBlock to fix the objPlayer object incorrectly calculating topToOrigin and leftToOrigin in objPlayer's Create Event. These values are calculated correctly in objPlayer's End Step event, so this miscalculation did 
+ - Replaced sprBetterBlockMiku, yet again
+
+Version 1.1.4 (2/16/21):
+ - Remade the PlayerKiller miku image so it would be of a higher quality
+ - One of objWorld's step event execute code blocks was incorrectly applied to all objWorld instances when run. This has been changed back to only apply to "self". I believe this is also in the original YoYoYo engine, but it won't cause any glitches since there can only be one objWorld instance present anyways.
+ - Changed the spawn position of objBetterBlockAvoB01
+
+Version 1.1.3 (2/2/21):
+ - Fixed an inconsistency with the project file which caused a "missing resource" pop-up.
+ - Slightly altered the code in objBetterMovingWheelCtrl to fix a bug when first calculating the "trackPos" variable. (Reimport)
+
+Version 1.1.2 (12/17/20):
+ - Fixed a glitch in the BetterPlatform object which could rarely pull the player through a block due to GameMaker's method of calculating gravity. (Reimport)
  - Documentation: Clarified what order in the resource tree these assets need to be in.
 
-Version 1.11 (11/14/20):
+Version 1.1.1 (11/14/20):
  - Improved the platform wheel code to make it more readable.
  - Adjusted the way the player's top/bottom/left/rightToOrigin values are calculated to be more logical.
 
 Version 1.1 (11/9/20):
- - Updated the BetterBlock and BetterPlatform code so they will now work regardless of the Player's mask and origin.
+ - Updated the BetterBlock and BetterPlatform code so they will now work regardless of the Player's mask and origin. (Reimport)
 
 Version 1.0 (8/1/20):
  - Initial Release
