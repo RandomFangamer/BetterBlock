@@ -149,12 +149,17 @@ if (player != noone &amp;&amp; (!instance_exists(player.riding) || player.riding
             platCheck = riding.x - riding.xprevious;
             platCheck -= hPush;
             if (place_meeting(x + platCheck, y + global.grav, riding) || sign(platCheck) == sign(PhSpd)){ //prevents the player from falling off the edge of a moving platfom when they should still be on it
+                //Version 1.1.6
+                var t_xoffset = 0;
+                if (abs(other.hspeed) mod 1 == 0.5){
+                    t_xoffset = sign(other.hspeed);
+                }
                 for(platCounter=1; platCounter&lt;=ceil(abs(platCheck)); platCounter++){
                     if (platCounter &gt; abs(platCheck)) //for non-integer values
                         platCounter = abs(platCheck);
-                    if (place_meeting(x+platCounter*sign(platCheck), y, objBlock)){
+                    if (place_meeting(x+platCounter*sign(platCheck)+t_xoffset, y, objBlock)){
                         with (objBlock){
-                            if (scrIsBlock() &amp;&amp; place_meeting(x-other.platCounter*sign(other.platCheck), y, other)){
+                            if (scrIsBlock() &amp;&amp; place_meeting(x-other.platCounter*sign(other.platCheck)-t_xoffset, y, other)){
                                 other.platCheck = (other.platCounter-1)*sign(other.platCheck);
                                 other.platCounter = ceil(abs(other.platCheck));
                                 break;

@@ -98,6 +98,9 @@
     <instance objName="objPlayerStart" x="96" y="448" name="inst_41A78195" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBetterMovingPlatform" x="1840" y="224" name="inst_E070DFA8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="2240" y="512" name="inst_0771AEEE" locked="0" code="" scaleX="5" scaleY="3" colour="4294967295" rotation="0"/>
+    <instance objName="objBetterBlock" x="96" y="352" name="inst_E6197814" locked="0" code="hspeed = 0.5&#xA;" scaleX="3" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objBlock" x="192" y="320" name="inst_2A2AEC08" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objBlock" x="192" y="384" name="inst_F72828E1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles>
     <tile bgName="bAllTiles" x="192" y="480" w="32" h="32" xo="32" yo="96" id="10003550" name="inst_96A13FA1" depth="1000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
