@@ -1,5 +1,8 @@
+Version 1.2: (9/3/21):
+ - Fixed a issue that could sometimes refresh the player's double jump if they moved over a BetterBlock or BetterPlatform while 1 pixel above it. (Thanks to RedBatNick for reporting this)
+
 Version 1.1.6 (6/28/21):
- - Fixed an issue which caused the Player to be killed if they were riding a BetterBlock with a horizontal speed that ended in .5 that carried them into another block or BetterBlock.
+ - Fixed an issue which caused the Player to be killed if they were riding a BetterBlock with a horizontal speed that ended in .5 that carried them into another block or BetterBlock. (Thanks to EchoMask for reporting this)
 
  Version 1.1.5 (5/17/21):
  - Modified objPlayer to fix the object incorrectly calculating topToOrigin and leftToOrigin in the Create Event. These values are calculated correctly in objPlayer's End Step event, so this miscalculation did not create any glitches.

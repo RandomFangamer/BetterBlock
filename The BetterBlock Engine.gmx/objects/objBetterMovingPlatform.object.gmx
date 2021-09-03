@@ -53,14 +53,14 @@ bbox_bPrevious = bbox_bottom;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>player = instance_place(x, y-2*global.grav, objPlayer);
-if (wasCarrying &amp;&amp; player == noone) player = instance_place(xprevious, yprevious-2*global.grav, objPlayer); //prev. frame
+            <string>player = instance_place(x, y-global.grav, objPlayer);
+if (wasCarrying &amp;&amp; player == noone) player = instance_place(xprevious, yprevious-global.grav, objPlayer); //prev. frame
 
 if (player == noone &amp;&amp; global.grav == 1 &amp;&amp; wasCarrying){
-    player = instance_place(xprevious, yprevious-2*global.grav - max(bbox_top - bbox_tPrevious, 0), objPlayer);
+    player = instance_place(xprevious, yprevious-global.grav - max(bbox_top - bbox_tPrevious, 0), objPlayer);
 }
 if (player == noone &amp;&amp; global.grav == -1 &amp;&amp; wasCarrying){
-    player = instance_place(xprevious, yprevious-2*global.grav - min(bbox_bottom - bbox_bPrevious, 0), objPlayer); //prev. frame position and scale
+    player = instance_place(xprevious, yprevious-global.grav - min(bbox_bottom - bbox_bPrevious, 0), objPlayer); //prev. frame position and scale
 }
 
 //Not on top of platform

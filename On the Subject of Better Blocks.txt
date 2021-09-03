@@ -21,13 +21,13 @@ What is included with this engine?
 ------------------------------------------------------------------------
 To import these assets into an existing game, please see this section:
 
-What assets must be imported to get the Better Blocks and Platforms to work?
+What assets must be imported to get the BetterBlocks and BetterPlatforms to work?
 	objBetterBlock and objBetterMovingPlatform (obviously)
 	objBetterBlockCtrl
 	scrIsBlock, scrIsBetterBlock, and scrIsBetterPlatform
 	scrMoveContactObject, to replace move_contact_solid for the BetterBlocks.
 
-To update the engine from Version 1 to Version 1.1.4:
+To update the engine from Version 1 to Version 1.2:
 	- Replace User Event 0, 1 and 2 in objBetterBlock
 	- Replace User Event 0 in objBetterMovingPlatform
 	- Replace the second Execute Code block in the End Step of objPlayer
@@ -35,6 +35,7 @@ To update the engine from Version 1 to Version 1.1.4:
 	Optional:
 	- Replace sprBetterBlockMiku
 	- Change the line "with (instance_create(x,y,objBetterBlockAvoB01)){" to "with (instance_create(x-16,y-16,objBetterBlockAvoB01)){" in objBetterBlockMiku
+	- Replace lines 38 and 40 in objPlayer's Create Event (Basically optional since the End Step event will get the correct values anyway)
 
 To update the engine from Version 1.1 to Version 1.1.1:
 	- Replace User Event 0 and 1 in objBetterBlock
@@ -54,6 +55,12 @@ To update the engine from Version 1.1.3 to Version 1.1.4: (Optional - only affec
 To update the engine from Version 1.1.4 to Version 1.1.5:
 	- Replace lines 38 and 40 in objPlayer's Create Event (Basically optional since the End Step event will get the correct values anyway)
 	- Replace sprBetterBlockMiku, yet again
+
+To update the engine from Version 1.1.5 to Version 1.1.6:
+	- Replace the "Horizontal Movement" section in objBetterBlock's User Event 2
+
+To update the engine from Version 1.1.6 to Version 1.2:
+	- Replace User Event 2 in objBetterBlock and objBetterMovingPlatform
 
 What existing code does this engine change? (Required to import Better Blocks and Platforms into your game)
 	objPlayer:
@@ -83,7 +90,7 @@ What existing code does this engine change? (Required to import Better Blocks an
 				Allows objPlatform and it's children to be included in the objBlock collision check.
 	
 	***Additionally, please note that objBetterMovingPlatform and objBetterBlock are children of objPlatform. If these objects are not present in the file you are importing the Better Blocks/Platforms to, it will cause multiple errors.***
-	***If you turn off short-circuit evaluations, these assets will cause your game to crash. The setting for short-circuit evaluations is located in the General tab of the Resources -> Global Game Settings window.
+	***If you turn off short-circuit evaluations, these assets will cause your game to crash. The setting for short-circuit evaluations is located in the General tab of the Resources -> Global Game Settings window.***
 ------------------------------------------------------------------------
 
 **IMPORTANT NOTE**
@@ -117,7 +124,7 @@ Rotating blocks/platforms will also not function properly.
 	- scrIsBetterBlock() || Returns "true" if the instance/object is objBetterBlock or a child of objBetterBlock.
 	- scrIsBetterPlatform() || Returns "true" if the instance/object is objBetterMovingPlatform or a child of objBetterMovingPlatform.
 
-4) If you want to move a Better Block to a new position without it recording that movement, you should run make the Better Block run event_user(3) after moving it. This will make the Better Block act as if it was in this new position the previous frame. After running that event, any new movement will be used to determine how to push the player.
+4) If you want to move a Better Block to a new position without it using that movement to push the player, you should run make the Better Block run event_user(3) after moving it. This will make the Better Block act as if it was in this new position the previous frame. After running that event, any new movement will be used to determine how to push the player.
 One possible use of this is to deliberately "crush" the player by moving a Better Block to their position, as normally the Better Block would push the player in the direction it "moved".
 
 Additionally, if you want to add to this engine, you can send the new assets/code to me through Discord and I will implement them and give you credit if desired. These contributions can be improvements to the existing objects, new objects, new scripts, etc. I would love for people to contribute to this engine, since my primary focus will be on my own games. I may update the engine myself from time to time if I end up needing additional features or think of something useful.

@@ -84,14 +84,14 @@ bbox_rPrevious = bbox_right;
             <kind>1</kind>
             <string>///Platform behavior
 if (!instance_exists(objPlayer)) exit;
-player = instance_place(x, y-2*global.grav, objPlayer);
-if (wasCarrying &amp;&amp; player == noone) player = instance_place(xprevious, yprevious-2*global.grav, objPlayer); //prev. frame
-
+//Altered in Version 1.2
+player = instance_place(x, y-global.grav, objPlayer);
+if (wasCarrying &amp;&amp; player == noone) player = instance_place(xprevious, yprevious-global.grav, objPlayer); //prev. frame
 if (player == noone &amp;&amp; global.grav == 1 &amp;&amp; wasCarrying){
-    player = instance_place(xprevious, y-2*global.grav - max(bbox_top - bbox_tPrevious, 0), objPlayer);
+    player = instance_place(xprevious, y-global.grav - max(bbox_top - bbox_tPrevious, 0), objPlayer);
 }
 if (player == noone &amp;&amp; global.grav == -1 &amp;&amp; wasCarrying){
-    player = instance_place(xprevious, y-2*global.grav - min(bbox_bottom - bbox_bPrevious, 0), objPlayer); //prev. frame position and scale
+    player = instance_place(xprevious, y-global.grav - min(bbox_bottom - bbox_bPrevious, 0), objPlayer); //prev. frame position and scale
 }
 
 //Inside the block (In normal gameplay, this would kill the player regardless)
@@ -99,7 +99,7 @@ if (player != noone &amp;&amp; place_meeting(x, y, player))
     player = noone;
 
 //Interactions
-if (player != noone &amp;&amp; (!instance_exists(player.riding) || player.riding = id)){
+if (player != noone &amp;&amp; (!instance_exists(player.riding) || player.riding == id)){
     with (player){
         riding = other;
         djump = 1;
@@ -149,11 +149,12 @@ if (player != noone &amp;&amp; (!instance_exists(player.riding) || player.riding
             platCheck = riding.x - riding.xprevious;
             platCheck -= hPush;
             if (place_meeting(x + platCheck, y + global.grav, riding) || sign(platCheck) == sign(PhSpd)){ //prevents the player from falling off the edge of a moving platfom when they should still be on it
-                //Version 1.1.6
+                //Added in Version 1.1.6
                 var t_xoffset = 0;
                 if (abs(other.hspeed) mod 1 == 0.5){
                     t_xoffset = sign(other.hspeed);
                 }
+                
                 for(platCounter=1; platCounter&lt;=ceil(abs(platCheck)); platCounter++){
                     if (platCounter &gt; abs(platCheck)) //for non-integer values
                         platCounter = abs(platCheck);
