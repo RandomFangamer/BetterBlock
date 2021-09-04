@@ -160,7 +160,9 @@ if (instance_exists(objPlayer) || timer &gt; 4040){ //player is destroyed during
             with (objPlayer) frozen = false;
             break;
         case 443:
-            with (objBetterBlock) vspeed = 1;
+            with (objBetterBlock)
+                if (object_index == objBetterBlock)
+                    vspeed = 1;
             for(i=-3;i&lt;=3;i++){
                 with (instance_create(170, 150, objBetterBlockAvoP01)){
                     range = 8*other.i;
@@ -170,7 +172,9 @@ if (instance_exists(objPlayer) || timer &gt; 4040){ //player is destroyed during
             }
             break;
         case 462:
-            with (objBetterBlock) vspeed = 8;
+            with (objBetterBlock)
+                if (object_index == objBetterBlock)
+                    vspeed = 8;
             break;
         case 677:
             with (objBetterBlock)

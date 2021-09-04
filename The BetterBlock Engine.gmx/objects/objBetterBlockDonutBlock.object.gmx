@@ -32,9 +32,9 @@ falling = false;
 image_speed = 0;
 xOrigin = x; //shaking
 yOrigin = y; //shaking
-//When the object shakes, it actually moves its position instead of just drawing its sprite at an offset to test Better Block movement.
+//If actualShake is true, the object actually moves its position instead of just drawing its sprite at an offset to test Better Block movement.
 //If you want to actually use these blocks, I recommend changing actualShake to false. Otherwise, you will encounter some weird behavior when the player is standing on two at once.
-actualShake = true;
+actualShake = false;
 shakeXOff = 0;
 shakeYOff = 0;
 </string>
@@ -59,7 +59,11 @@ shakeYOff = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!falling &amp;&amp; active){
+            <string>if (actualShake){
+    xOrigin += hspeed;
+    yOrigin += vspeed;
+}
+if (!falling &amp;&amp; active){
     if (wasCarrying){ //only fall if player is standing on the platform
         if (timer == -1){
             timer = 120;
@@ -100,6 +104,9 @@ shakeYOff = 0;
             y = yOrigin;
         }
     }
+}else{
+    shakeXOff = 0;
+    shakeYOff = 0;
 }
 
 if ((sign(vspeed) == 1 &amp;&amp; bbox_top &gt;= room_height + 32) || (sign(vspeed) == -1 &amp;&amp; bbox_bottom &lt;= -32)){
@@ -130,7 +137,7 @@ if ((sign(vspeed) == 1 &amp;&amp; bbox_top &gt;= room_height + 32) || (sign(vspe
             <string>if (actualShake){
     draw_self();
 }else{
-    draw_sprite_ext(sprite_index, image_index, xOrigin + shakeXOff, yOrigin + shakeYOff, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+    draw_sprite_ext(sprite_index, image_index, x + shakeXOff, y + shakeYOff, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 }
 </string>
           </argument>

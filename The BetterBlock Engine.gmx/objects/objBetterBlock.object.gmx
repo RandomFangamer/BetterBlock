@@ -99,7 +99,7 @@ if (player != noone &amp;&amp; place_meeting(x, y, player))
     player = noone;
 
 //Interactions
-if (player != noone &amp;&amp; (!instance_exists(player.riding) || player.riding == id)){
+if (player != noone &amp;&amp; (!instance_exists(player.riding) || player.riding == id) &amp;&amp; player.vspeed*global.grav &gt;= 0){
     with (player){
         riding = other;
         djump = 1;
