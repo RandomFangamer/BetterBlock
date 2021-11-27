@@ -1,4 +1,15 @@
-Version 1.2: (9/3/21):
+Version 1.2.2: (11/26/21):
+ - Changed how the BetterBlocks handle pushing a player while at an offset of 0.5 pixels.
+ - Fixed a glitch that caused the player to fall off a BetterBlock if they were hanging on to it by one pixel and moving vertically.
+ - Tweaked a comment in objBetterBlock's User Event 1 that incorrectly said "left" and "right" instead of "top" and "bottom".
+ - Changed a single tile in the BetterBlock Sample Room at position (192, 576).
+
+Version 1.2.1: (9/4/21):
+ - Actually fixed the aforementioned glitch. (Thanks again, RedBatNick)
+ - Set "actualShake" in the SMW Donut blocks to false by default.
+ - Improved the avoidance code a bit to tolerate the player playing around with the position-changing dev keys.
+
+ Version 1.2: (9/3/21):
  - Fixed a issue that could sometimes refresh the player's double jump if they moved over a BetterBlock or BetterPlatform while 1 pixel above it. (Thanks to RedBatNick for reporting this)
 
 Version 1.1.6 (6/28/21):

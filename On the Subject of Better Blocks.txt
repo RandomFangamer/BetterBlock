@@ -32,9 +32,6 @@ To update the engine from Version 1 to Version 1.2:
 	- Replace User Event 0 in objBetterMovingPlatform
 	- Replace the second Execute Code block in the End Step of objPlayer
 	- Replace Alarm 0 in objBetterBlockWheelCtrl
-	Optional:
-	- Replace sprBetterBlockMiku
-	- Change the line "with (instance_create(x,y,objBetterBlockAvoB01)){" to "with (instance_create(x-16,y-16,objBetterBlockAvoB01)){" in objBetterBlockMiku
 	- Replace lines 38 and 40 in objPlayer's Create Event (Basically optional since the End Step event will get the correct values anyway)
 
 To update the engine from Version 1.1 to Version 1.1.1:
@@ -48,19 +45,20 @@ To update the engine from Version 1.1.1 to Version 1.1.2:
 To update the engine from Version 1.1.2 to Version 1.1.3:
 	- Replace Alarm 0 in objBetterBlockWheelCtrl
 
-To update the engine from Version 1.1.3 to Version 1.1.4: (Optional - only affects the avoidance)
-	- Replace sprBetterBlockMiku
-	- Change the line "with (instance_create(x,y,objBetterBlockAvoB01)){" to "with (instance_create(x-16,y-16,objBetterBlockAvoB01)){" in objBetterBlockMiku
-
 To update the engine from Version 1.1.4 to Version 1.1.5:
 	- Replace lines 38 and 40 in objPlayer's Create Event (Basically optional since the End Step event will get the correct values anyway)
-	- Replace sprBetterBlockMiku, yet again
 
 To update the engine from Version 1.1.5 to Version 1.1.6:
 	- Replace the "Horizontal Movement" section in objBetterBlock's User Event 2
 
-To update the engine from Version 1.1.6 to Version 1.2:
-	- Replace User Event 2 in objBetterBlock and objBetterMovingPlatform
+To update the engine from Version 1.1.6 to Version 1.2.1:
+	- Replace User Event 2 in objBetterBlock and User Event 0 in objBetterMovingPlatform
+
+To update the engine from Version 1.2.1 to Version 1.2.2:
+	- Replace User Event 1 in objBetterBlock
+	
+To update the engine from Version 1.2.2 to Version 1.2.3:
+	- Replace User Event 0 and 1 in objBetterBlock
 
 What existing code does this engine change? (Required to import Better Blocks and Platforms into your game)
 	objPlayer:

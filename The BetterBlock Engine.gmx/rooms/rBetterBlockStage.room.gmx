@@ -101,7 +101,6 @@
   </instances>
   <tiles>
     <tile bgName="bAllTiles" x="192" y="480" w="32" h="32" xo="32" yo="96" id="10003550" name="inst_96A13FA1" depth="1000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
-    <tile bgName="bAllTiles" x="192" y="576" w="32" h="32" xo="32" yo="96" id="10003551" name="inst_9C5D87E6" depth="1000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
     <tile bgName="bAllTiles" x="32" y="480" w="32" h="32" xo="0" yo="96" id="10003552" name="inst_4436BC2F" depth="1000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
     <tile bgName="bAllTiles" x="64" y="480" w="32" h="32" xo="0" yo="96" id="10003553" name="inst_B6F62441" depth="1000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
     <tile bgName="bAllTiles" x="96" y="480" w="32" h="32" xo="0" yo="96" id="10003554" name="inst_B734D9FA" depth="1000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
@@ -176,6 +175,7 @@
     <tile bgName="bAllTiles" x="2304" y="576" w="32" h="32" xo="0" yo="64" id="10003659" name="inst_1018E791" depth="1000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
     <tile bgName="bAllTiles" x="2240" y="512" w="32" h="32" xo="32" yo="96" id="10003660" name="inst_A68F2E20" depth="1000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
     <tile bgName="bAllTiles" x="0" y="480" w="32" h="32" xo="0" yo="96" id="10003898" name="inst_532C198F" depth="1000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="bAllTiles" x="192" y="576" w="32" h="32" xo="32" yo="64" id="10003899" name="inst_C6A154BA" depth="1000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
   </tiles>
   <PhysicsWorld>0</PhysicsWorld>
   <PhysicsWorldTop>0</PhysicsWorldTop>

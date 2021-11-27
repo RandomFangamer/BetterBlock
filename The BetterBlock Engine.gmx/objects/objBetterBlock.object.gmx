@@ -2,7 +2,7 @@
 <object>
   <spriteName>sprBlockMask</spriteName>
   <solid>0</solid>
-  <visible>0</visible>
+  <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
   <parentName>objPlatform</parentName>
@@ -206,30 +206,36 @@ player = instance_place(x, y, objPlayer);
 //Movement
 with (player){ //Move with the block
     var t_BvSpd = 0;
-    var t_BvSide = 0; //-1 = left, 1 = right
-    if (yprevious - 2 &lt; other.bbox_tPrevious + (other.bbox_bPrevious - other.bbox_tPrevious)/2){//get bbox_top difference
+    var t_BvSide = 0; //-1 = top, 1 = bottom
+    var t_roundOffset = 0; //account for GameMaker rounding to the nearest even number, which can cause some issues in gaps the player can barely fit in.
+    
+    if (yprevious - 2 &lt; other.bbox_tPrevious + (other.bbox_bPrevious - other.bbox_tPrevious)/2){ //get bbox_top difference
         t_BvSpd = other.bbox_top - other.bbox_tPrevious;
         t_BvSide = -1;
+        if (abs(other.y) mod 1 == 0 &amp;&amp; floor(other.y) mod 2 == 0)
+            t_roundOffset = -1;
     }else{ //get bbox_bottom difference
         t_BvSpd = other.bbox_bottom - other.bbox_bPrevious;
         t_BvSide = 1;
+        if (abs(other.y) mod 1 == 0 &amp;&amp; floor(other.y) mod 2 == 0)
+            t_roundOffset = 1;
     }
-    if (!place_meeting(x, y - PvSpd + t_BvSpd + t_BvSide, other)){
+    if (!place_meeting(x, y - PvSpd + t_BvSpd + t_roundOffset, other)){
         if (t_BvSide == -1){
             if (global.grav == 1){
-                y = other.bbox_top - bottomToOrigin;
+                y = other.bbox_top - bottomToOrigin + t_roundOffset;
                 vspeed = 0; //stand
                 other.wasCarrying = true;
             }else{
-                y = other.bbox_top - bottomToOrigin;
+                y = other.bbox_top - bottomToOrigin + t_roundOffset;
                 vspeed = min(0, t_BvSpd, vspeed); //bonk
             }
         }else{
             if (global.grav == 1){
-                y = other.bbox_bottom + 1 + topToOrigin;
+                y = other.bbox_bottom + 1 + topToOrigin + t_roundOffset;
                 vspeed = max(0, t_BvSpd, vspeed); //bonk
             }else{
-                y = other.bbox_bottom + 1 + topToOrigin; 
+                y = other.bbox_bottom + 1 + topToOrigin + t_roundOffset; 
                 vspeed = 0; //stand
                 other.wasCarrying = true;
             }
@@ -273,14 +279,20 @@ player = instance_place(x, y, objPlayer);
 with (player){
     var t_BhSpd = 0;
     var t_BhSide = 0; //-1 = left, 1 = right
+    var t_roundOffset = 0; //account for GameMaker rounding numbers ending in .50 to the nearest even number, which can cause some issues in gaps the player can barely fit in.
+    
     if (xprevious &lt; other.bbox_lPrevious + (other.bbox_rPrevious - other.bbox_lPrevious)/2){//get bbox_left difference
         t_BhSpd = other.bbox_left - other.bbox_lPrevious;
         t_BhSide = -1;
+        if (abs(other.x) mod 1 == 0 &amp;&amp; floor(other.x) mod 2 == 0)
+            t_roundOffset = -1;
     }else{ //get bbox_right difference
         t_BhSpd = other.bbox_right - other.bbox_rPrevious;
         t_BhSide = 1;
+        if (abs(other.x) mod 1 == 0 &amp;&amp; floor(other.x) mod 2 == 0)
+            t_roundOffset = 1;
     }
-    if (!place_meeting(x - PhSpd + ceil(t_BhSpd) + t_BhSide, y, other)){
+    if (!place_meeting(x - PhSpd + t_BhSpd + t_roundOffset, y, other)){
         if (t_BhSide == -1){
             hPush += (other.bbox_left - rightToOrigin) - x;
             x = other.bbox_left - rightToOrigin;
@@ -289,7 +301,7 @@ with (player){
             x = other.bbox_right + 1 + leftToOrigin;
         }
         
-        //Fix for very specific glitch which occurs when the player walks off a block into a Better Block, and is then pushed out by said Better Block
+        //Fix for very specific glitch which occurs when the player walks off an instance of objBlock into a Better Block, and is then pushed out by said Better Block
         if (place_meeting(x, y, objBlock) &amp;&amp; !place_meeting(x, y-gravity, objBlock)) y -= gravity;
     }
 }

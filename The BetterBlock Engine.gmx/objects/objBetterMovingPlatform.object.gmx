@@ -125,8 +125,8 @@ if (player != noone &amp;&amp; (!instance_exists(player.riding) || player.riding
             y += platCheck;
         }
         //Horizontal Movement
-        if (riding = other.id){ //will not be true if the player was placed on a block while calculating vertical movement in the above section;
-            platCheck = other.x - other.xprevious;
+        if (riding == other.id){ //will not be true if the player was placed on a block while calculating vertical movement in the above section;
+            platCheck = riding.x - riding.xprevious;
             platCheck -= hPush; //prevents the player from hanging on the edge of a moving platfom when they should have fallen
             for(platCounter=1; platCounter&lt;=ceil(abs(platCheck)); platCounter++){
                 if (place_meeting(x+platCounter*sign(platCheck), y, objBlock)){
