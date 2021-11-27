@@ -1,0 +1,203 @@
+// 2021-11-26 22:01:18
+#event properties (no comments/etc. here are saved)
+parent_index = objPlatform;
+sprite_index = sprBlockMask;
+uses_physics = false;
+
+#event create
+bbox_tPrevious = bbox_top;
+bbox_bPrevious = bbox_bottom;
+bbox_lPrevious = bbox_left;
+bbox_rPrevious = bbox_right;
+wasCarrying = false; //whether to check for the player at the block's previous position (to allow the player to ride it like a platform)
+
+player = noone;
+carry = true; //whether to carry the player horizontally
+
+#event other_user0|Horizontal movement
+if (!instance_exists(objPlayer)) exit;
+//Find Player to push
+player = instance_place(x, y, objPlayer);
+
+//Movement
+with (player){
+    var t_BhSpd = 0;
+    var t_BhSide = 0; //-1 = left, 1 = right
+    var t_roundOffset = 0; //account for GameMaker rounding numbers ending in .50 to the nearest even number, which can cause some issues in gaps the player can barely fit in.
+    
+    if (xprevious < other.bbox_lPrevious + (other.bbox_rPrevious - other.bbox_lPrevious)/2){//get bbox_left difference
+        t_BhSpd = other.bbox_left - other.bbox_lPrevious;
+        t_BhSide = -1;
+        if (abs(other.x) mod 1 == 0 && floor(other.x) mod 2 == 0)
+            t_roundOffset = -1;
+    }else{ //get bbox_right difference
+        t_BhSpd = other.bbox_right - other.bbox_rPrevious;
+        t_BhSide = 1;
+        if (abs(other.x) mod 1 == 0 && floor(other.x) mod 2 == 0)
+            t_roundOffset = 1;
+    }
+    if (!place_meeting(x - PhSpd + t_BhSpd + t_roundOffset, y, other)){
+        if (t_BhSide == -1){
+            hPush += (other.bbox_left - rightToOrigin) - x;
+            x = other.bbox_left - rightToOrigin;
+        }else{ //+1 since bbox_right is one pixel off
+            hPush += (other.bbox_right + 1 + leftToOrigin) - x;
+            x = other.bbox_right + 1 + leftToOrigin;
+        }
+        
+        //Fix for very specific glitch which occurs when the player walks off an instance of objBlock into a Better Block, and is then pushed out by said Better Block
+        if (place_meeting(x, y, objBlock) && !place_meeting(x, y-gravity, objBlock)) y -= gravity;
+    }
+}
+
+#event other_user1|Vertical movement
+if (!instance_exists(objPlayer)) exit;
+
+//Find Player to push
+player = instance_place(x, y, objPlayer);
+
+//Movement
+with (player){ //Move with the block
+    var t_BvSpd = 0;
+    var t_BvSide = 0; //-1 = top, 1 = bottom
+    var t_roundOffset = 0; //account for GameMaker rounding to the nearest even number, which can cause some issues in gaps the player can barely fit in.
+    
+    if (yprevious - 2 < other.bbox_tPrevious + (other.bbox_bPrevious - other.bbox_tPrevious)/2){ //get bbox_top difference
+        t_BvSpd = other.bbox_top - other.bbox_tPrevious;
+        t_BvSide = -1;
+        if (abs(other.y) mod 1 == 0 && floor(other.y) mod 2 == 0)
+            t_roundOffset = -1;
+    }else{ //get bbox_bottom difference
+        t_BvSpd = other.bbox_bottom - other.bbox_bPrevious;
+        t_BvSide = 1;
+        if (abs(other.y) mod 1 == 0 && floor(other.y) mod 2 == 0)
+            t_roundOffset = 1;
+    }
+    if (!place_meeting(x, y - PvSpd + t_BvSpd + t_roundOffset, other)){
+        if (t_BvSide == -1){
+            if (global.grav == 1){
+                y = other.bbox_top - bottomToOrigin;
+                vspeed = 0; //stand
+                other.wasCarrying = true;
+            }else{
+                y = other.bbox_top - bottomToOrigin;
+                vspeed = min(0, t_BvSpd, vspeed); //bonk
+            }
+        }else{
+            if (global.grav == 1){
+                y = other.bbox_bottom + 1 + topToOrigin;
+                vspeed = max(0, t_BvSpd, vspeed); //bonk
+            }else{
+                y = other.bbox_bottom + 1 + topToOrigin; 
+                vspeed = 0; //stand
+                other.wasCarrying = true;
+            }
+        }
+        //Get pushed horizontally if the player is pushed into a Better Block that would have pushed the player out if vertical movement was handled first
+        if (place_meeting(x, y, objBetterBlock)){
+            with (objBetterBlock){
+                if (place_meeting(x, y, other)) event_user(0);
+            }
+        }
+    }
+}
+
+#event other_user2|Platform behavior
+if (!instance_exists(objPlayer)) exit;
+//Altered in Version 1.2
+player = instance_place(x, y-global.grav, objPlayer);
+if (wasCarrying && player == noone) player = instance_place(xprevious, yprevious-global.grav, objPlayer); //prev. frame
+if (player == noone && global.grav == 1 && wasCarrying){
+    player = instance_place(xprevious, y-global.grav - max(bbox_top - bbox_tPrevious, 0), objPlayer);
+}
+if (player == noone && global.grav == -1 && wasCarrying){
+    player = instance_place(xprevious, y-global.grav - min(bbox_bottom - bbox_bPrevious, 0), objPlayer); //prev. frame position and scale
+}
+
+//Inside the block (In normal gameplay, this would kill the player regardless)
+if (player != noone && place_meeting(x, y, player))
+    player = noone;
+
+//Interactions
+if (player != noone && (!instance_exists(player.riding) || player.riding == id) && player.vspeed*global.grav >= 0){
+    with (player){
+        riding = other;
+        djump = 1;
+        onPlatform = true;
+        
+        //Vertical Movement
+        if (global.grav == 1){
+            if (vspeed > 0) vspeed = 0;
+            platCheck = other.bbox_top - (y + bottomToOrigin);
+            for(platCounter=1; platCounter<=ceil(abs(platCheck)); platCounter++){
+                if (place_meeting(x, y+platCounter*sign(platCheck), objBlock)){
+                    with (objBlock){
+                        if (scrIsBlock() && place_meeting(x, y-other.platCounter*sign(other.platCheck), other)){
+                            other.platCheck = (other.platCounter-1)*sign(other.platCheck);
+                            other.platCounter = ceil(abs(other.platCheck)); //end the for loop
+                            if (other.platCheck > 0){
+                                other.onPlatform = (object_is_ancestor(object_index, objPlatform) || object_index == objPlatform);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            y += platCheck;
+        }else if (global.grav == -1){
+            if (vspeed < 0) vspeed = 0;
+            platCheck = other.bbox_top - (y - bottomToOrigin);
+            for(platCounter=1; platCounter<=ceil(abs(platCheck)); platCounter++){
+                if (place_meeting(x, y+platCounter*sign(platCheck), objBlock)){
+                    with (objBlock){
+                        if (scrIsBlock() && place_meeting(x, y-other.platCounter*sign(other.platCheck), other)){
+                            other.platCheck = (other.platCounter-1)*sign(other.platCheck);
+                            other.platCounter = ceil(abs(other.platCheck));
+                            if (other.platCheck < 0){ //avoid being pulled into a block
+                                other.onPlatform = (object_is_ancestor(object_index, objPlatform) || object_index == objPlatform);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            y += platCheck;
+        }
+        
+        //Horizontal Movement
+        if (other.carry){
+            platCheck = riding.x - riding.xprevious;
+            platCheck -= hPush;
+            if (place_meeting(x + platCheck, y + global.grav, riding) || sign(platCheck) == sign(PhSpd)){ //prevents the player from falling off the edge of a moving platfom when they should still be on it
+                //Added in Version 1.1.6
+                var t_xoffset = 0;
+                if (abs(other.hspeed) mod 1 == 0.5){
+                    t_xoffset = sign(other.hspeed);
+                }
+                
+                for(platCounter=1; platCounter<=ceil(abs(platCheck)); platCounter++){
+                    if (platCounter > abs(platCheck)) //for non-integer values
+                        platCounter = abs(platCheck);
+                    if (place_meeting(x+platCounter*sign(platCheck)+t_xoffset, y, objBlock)){
+                        with (objBlock){
+                            if (scrIsBlock() && place_meeting(x-other.platCounter*sign(other.platCheck)-t_xoffset, y, other)){
+                                other.platCheck = (other.platCounter-1)*sign(other.platCheck);
+                                other.platCounter = ceil(abs(other.platCheck));
+                                break;
+                            }
+                        }
+                    }
+                }
+                x += platCheck;
+            }
+        }
+    }
+}
+
+wasCarrying = (player != noone);
+
+#event other_user3|Set values for next frame
+bbox_tPrevious = bbox_top;
+bbox_bPrevious = bbox_bottom;
+bbox_lPrevious = bbox_left;
+bbox_rPrevious = bbox_right;
