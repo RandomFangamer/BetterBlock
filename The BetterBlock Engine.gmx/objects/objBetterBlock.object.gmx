@@ -126,7 +126,7 @@ if (player != noone &amp;&amp; (!instance_exists(player.riding) || player.riding
             y += platCheck;
         }else if (global.grav == -1){
             if (vspeed &lt; 0) vspeed = 0;
-            platCheck = other.bbox_top - (y - bottomToOrigin);
+            platCheck = (other.bbox_bottom+1) - (y - topToOrigin);
             for(platCounter=1; platCounter&lt;=ceil(abs(platCheck)); platCounter++){
                 if (place_meeting(x, y+platCounter*sign(platCheck), objBlock)){
                     with (objBlock){
