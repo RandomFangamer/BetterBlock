@@ -27,7 +27,7 @@ What assets must be imported to get the BetterBlocks and BetterPlatforms to work
 	scrIsBlock, scrIsBetterBlock, and scrIsBetterPlatform
 	scrMoveContactObject, to replace move_contact_solid for the BetterBlocks.
 
-To update the engine from Version 1 to Version 1.2:
+To update the engine from Version 1 to Version 1.2.3:
 	- Replace User Event 0, 1 and 2 in objBetterBlock
 	- Replace User Event 0 in objBetterMovingPlatform
 	- Replace the second Execute Code block in the End Step of objPlayer
@@ -58,7 +58,7 @@ To update the engine from Version 1.2.1 to Version 1.2.2:
 	- Replace User Event 1 in objBetterBlock
 	
 To update the engine from Version 1.2.2 to Version 1.2.3:
-	- Replace User Event 0 and 1 in objBetterBlock
+	- Replace User Event 2 in objBetterBlock
 
 What existing code does this engine change? (Required to import Better Blocks and Platforms into your game)
 	objPlayer:
